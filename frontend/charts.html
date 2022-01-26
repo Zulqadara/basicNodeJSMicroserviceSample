@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+   <head><title>Hello world</title></head>
+   <script src="http://localhost:4000/socket.io/socket.io.js"></script>
+   <script>
+      var socket = io("http://localhost:4000", { transports : ['websocket'] });
+      socket.on('testerEvent', function(data){document.write(data.description)});
+   </script>
+   <body>Hello world</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hi</h1>
+    <p id="title"></p>
+    <script>
+        var headers = {}
+        fetch('http://localhost:2000/viewItemBrand',{
+                method : "GET",
+                mode: 'cors',
+                headers: headers
+            }) 
+            .then(
+                data => { 
+                    return data.json(); 
+                }) 
+            .then(
+                brands => { 
+                    console.log(brands); 
+                    document.getElementById("title").innerHTML = brands.itemBrands[0];
+                });
+    </script>
+</body>
+</html>
