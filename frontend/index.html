@@ -11,6 +11,9 @@
     <hr>
     
     <form id="itemForm">
+        <input name="server_url" id="server_url" value="http://localhost:2000" placeholder="Server URL"/> | Server URL
+        <br>
+        <br>
         <input name="item" id="name" placeholder="Item Name"/>
         <input type="button" id="submit" value="Submit">
     </form>
@@ -18,11 +21,12 @@
     <ul id="list"></ul>
     <script>
         const submit = document.querySelector('#submit')
+        const server_url = document.querySelector('#server_url').value
         var ul = document.getElementById("list");
        
 if(submit){
     submit.addEventListener('click', _ => {
-        fetch('http://localhost:2000/addItem', {
+        fetch(`${server_url}/addItem`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(
@@ -42,8 +46,8 @@ if(submit){
           });
       })   
 }
-
-        fetch('http://localhost:2000/viewItems',{
+if(server_url != ''){
+        fetch(`${server_url}/viewItems`,{
                 method : "GET"
             }) 
             .then(
@@ -59,6 +63,7 @@ if(submit){
                         ul.appendChild(li);  
                     });                     
                 });
+            }
     </script>
 </body>
 </html>
