@@ -4,26 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Microservices</title>
 </head>
 <body>
-    <h1>Hi</h1>
-    <p id="title"></p>
+    <h1>Microservices Example</h1>
+    <hr>
+    
+    <form id="itemForm">
+        <input name="item" id="name" placeholder="Item Name"/>
+        <input type="button" id="submit" value="Submit">
+    </form>
+    <h2>Item List:</h2>
+    <ul id="list"></ul>
     <script>
-        var headers = {}
-        fetch('http://localhost:2000/viewItemBrand',{
-                method : "GET",
-                mode: 'cors',
-                headers: headers
+        const submit = document.querySelector('#submit')
+        var ul = document.getElementById("list");
+       
+if(submit){
+    submit.addEventListener('click', _ => {
+        fetch('http://localhost:2000/addItem', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(
+            {
+                name: document.querySelector('#name').value
+            })
+            })
+        .then(res => {
+              return res.json()
+          })
+        .then(response => {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(response.items[response.items.length - 1]));
+            ul.appendChild(li);   
+        }).catch((error) => {
+            console.log(error);      
+          });
+      })   
+}
+
+        fetch('http://localhost:2000/viewItems',{
+                method : "GET"
             }) 
             .then(
                 data => { 
                     return data.json(); 
                 }) 
             .then(
-                brands => { 
-                    console.log(brands); 
-                    document.getElementById("title").innerHTML = brands.itemBrands[0];
+                response => { 
+                    response.items.forEach(element => {
+                        console.log(element);
+                        var li = document.createElement("li");
+                        li.appendChild(document.createTextNode(element));
+                        ul.appendChild(li);  
+                    });                     
                 });
     </script>
 </body>

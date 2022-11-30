@@ -5,26 +5,26 @@ const cors = require('cors')
 app.use(cors());
 app.use(express.json())
 
-var itemName = []
-var itemBrand = []
+var items = []
+
+//routes 
 
 app.get('/', (req, res)=>{
-    console.log("This is Home");
-})
-
-app.get('/viewItemBrand', (req, res)=>{
     return res.json({
-        "itemBrands": itemBrand
+        "message": "This is home"
     })
 })
 
-app.post('/addItem', (req,res)=>{
-    
-    itemName.push(req.body.name)
-    itemBrand.push(req.body.brand)
-
+app.get('/viewItems', (req, res)=>{
     return res.json({
-        "Item Names": itemName
+        "items": items
+    })
+})
+
+app.post('/addItem', (req,res)=>{    
+    items.push(req.body.name)
+    return res.json({
+        "items": items
     })
 })
 
