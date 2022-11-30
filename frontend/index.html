@@ -21,11 +21,13 @@
     <ul id="list"></ul>
     <script>
         const submit = document.querySelector('#submit')
-        const server_url = document.querySelector('#server_url').value
+        var server_url = document.querySelector('#server_url').value
         var ul = document.getElementById("list");
        
 if(submit){
     submit.addEventListener('click', _ => {
+        var server_url = document.querySelector('#server_url').value
+        console.log(server_url);
         fetch(`${server_url}/addItem`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

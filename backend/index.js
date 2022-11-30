@@ -22,6 +22,7 @@ app.get('/viewItems', (req, res)=>{
 })
 
 app.post('/addItem', (req,res)=>{    
+    console.log(req.body);
     items.push(req.body.name)
     return res.json({
         "items": items
