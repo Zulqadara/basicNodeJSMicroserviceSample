@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: public-nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  creationTimestamp: "2022-12-02T13:27:11Z"
+  generation: 20
+  name: sample-ingress
+  namespace: default
+  resourceVersion: "441304"
+  uid: ca25ec96-b092-42b0-88b7-b6b57a0bf5cd
+spec:
+  ingressClassName: nginx #comes from ingress controller
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: sample-frontend
+            port:
+              number: 80
+        path: /serva
+        pathType: Prefix
+      - backend:
+          service:
+            name: sample-backend
+            port:
+              number: 2000
+        path: /servb/(.*)
+        pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.168.1.112

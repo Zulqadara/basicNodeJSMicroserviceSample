@@ -15,6 +15,12 @@ app.get('/', (req, res)=>{
     })
 })
 
+app.get('/test', (req, res)=>{
+    return res.json({
+        "message": "This is test"
+    })
+})
+
 app.get('/viewItems', (req, res)=>{
     return res.json({
         "items": items
